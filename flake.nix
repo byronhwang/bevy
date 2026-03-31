@@ -75,7 +75,7 @@
         in
         {
           default = pkgs.mkShellNoCC {
-            name = "cppm";
+            name = "bevy";
             hardeningDisable = [ "fortify" ];
             packages = with pkgs; [
               pkg-config
@@ -112,6 +112,9 @@
               glm
               libGL
               vulkan-loader
+              vulkan-tools
+              vulkan-headers
+              vulkan-helper
               python313Packages.glad
               xorg.libX11
               xorg.libXrandr
@@ -179,6 +182,10 @@
               export LD_LIBRARY_PATH=${pkgs.libxkbcommon}/lib:$LD_LIBRARY_PATH
               export LD_LIBRARY_PATH=${pkgs.libGL}/lib:$LD_LIBRARY_PATH
               export LD_LIBRARY_PATH=${pkgs.glfw}/lib:$LD_LIBRARY_PATH
+              export LD_LIBRARY_PATH=${pkgs.vulkan-loader}/lib:$LD_LIBRARY_PATH
+
+              # Vulkan ICD path for NVIDIA
+              export VK_ICD_FILENAMES=/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json
             '';
           };
         }
